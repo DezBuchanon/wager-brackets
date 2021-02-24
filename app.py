@@ -4,16 +4,7 @@ import json
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response
 
-firebaseConfig = {
-    'apiKey': "AIzaSyDrz4YQABTgUER1pcVpIZsWfNKti878iq4",
-    'authDomain': "wager-brackets.firebaseapp.com",
-    'databaseURL': "https://wager-brackets.firebaseio.com",
-    'projectId': "wager-brackets",
-    'storageBucket': "wager-brackets.appspot.com",
-    'messagingSenderId': "435320672115",
-    'appId': "1:435320672115:web:e3811f2887a661f969bf06",
-    'measurementId': "G-WZJFFQ3NH2"
-}
+#insert firebase config
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 
