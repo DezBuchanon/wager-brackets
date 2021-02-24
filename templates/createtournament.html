@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block style %}
+<style>
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn {
+    background-color: rgb(90, 190, 193);
+    color: white;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Create a tournament</h1>
+
+<div class="container center">
+    <div class="row">
+
+        <div class="col-3"></div>
+
+        <div class="col-6">
+
+            <form action="#" method="post">
+               <!--vary numOfPlayers-->
+                <h2><label for="numOfPlayers">Number of Players</label></h2>
+                
+                        <select name="numOfPlayers" id="numOfPlayers" class="form-control">
+                            <option value=2>2</option>
+                            <option value=4>4</option>
+                            <option value=8>8</option>
+                        </select>
+     
+                <center><p><input type="submit" value="Create Tournament" class="btn" /></p></center>
+                     
+            </form>
+
+        </div>
+
+        <div class="col-3"></div>
+
+    </div>
+
+</div>
+{% endblock %}

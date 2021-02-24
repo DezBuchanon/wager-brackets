@@ -1,0 +1,159 @@
+{% extends "layout.html" %}
+
+{% block style %}
+<style>
+.playerCon {
+    background-color: rgb(49, 118, 124)
+}
+
+.vs {
+    color:  rgb(90, 190, 193);
+}
+
+h2 {
+    color: white;
+}
+
+.btn {
+    background-color: rgb(90, 190, 193);
+    color: white;
+    margin-top: 20px;
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    {% for player in tournament %}
+    <div class="row"> 
+        <div class="col-12">
+            <center>
+                <div class="col-8 playerCon">
+                    <h2>{{player.val().userName}}</h2>
+                </div>
+            </center>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <center><button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                Submit Results
+            </button></center>
+            <center><button type="button" class="btn" onclick="declare_winner();">
+                Declare Winner
+            </button></center>
+            <center><a href="{{ '/profile/%s' %(userID)  }}" ><button type="button" class="btn">
+                Back to profile
+            </button></a></center>
+        </div>
+    </div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Did you win?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn" onclick="win_yes();" data-dismiss="modal">Yes</button>
+              <button type="button" class="btn" onclick="win_no();" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p id="demo"></p>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+function win_yes() {
+    var results = {win_yes: 'win_yes'}
+
+    return fetch(`${window.location}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(results),
+        cache: "no-cache",
+        headers: new Headers({
+            "content-type": "application/json"
+        })
+    })
+    .then(function(response)  {
+
+        if (response.status != 200) {
+            console.log(`Reponse status was not 200: ${response.status}`);
+        }
+        response.json().then(function (data) {
+            console.log(data)
+        })
+     })
+    }
+
+function win_no() {
+
+    var results = {win_no: 'win_no'};
+
+    return fetch(`${window.location}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(results),
+        cache: "no-cache",
+        headers: new Headers({
+            "content-type": "application/json"
+        })
+    })
+    .then(function(response)  {
+
+        if (response.status != 200) {
+            console.log(`Reponse status was not 200: ${response.status}`);
+        }
+        response.json().then(function (data) {
+            console.log(data)
+        })
+    })
+}
+
+function declare_winner() {
+    
+    var results = {declare_winner: 'declare_winner'}
+
+    return fetch(`${window.location}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(results),
+        cache: "no-cache",
+        headers: new Headers({
+            "content-type": "application/json"
+        })
+    })
+    .then(function(response)  {
+
+        if (response.status != 200) {
+            console.log(`Reponse status was not 200: ${response.status}`);
+        }
+        response.json().then(function (data) {
+            console.log(data)
+        })
+     })
+     .then(function() {
+
+        location.reload();
+        
+     })
+    }
+
+</script>
+{% endblock %}

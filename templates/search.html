@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block style %}
+<style>
+.btn {
+    background-color: rgb(90, 190, 193);
+    color: white;
+}
+
+h2 {
+    color: rgb(90, 190, 193);
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<!--<center><h1>{{search[0].val().userName}}</h1></center>-->
+<div class="container center">
+    <div class="row">
+        <div class="col-12">
+            {% for result in search %}
+            <center>
+                <div class="col-12">
+                    <h2>{{result.val().userName}}'s Tournament</h2>
+                    <p>1/{{result.val().numOfPlayers}}</p>
+                    <center><a href="{{ '/viewtournament/%s' %(result.key())  }}" ><p class="btn">View Tournament</p></center></a>
+                </div>
+            </center>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+
+function join() {
+    
+    var entry = {uid: '{{userID}}', userName: '{{userName}}'};
+
+    return fetch(`${window.location}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(entry),
+        cache: "no-cache",
+        headers: new Headers({
+            "content-type": "application/json"
+        })
+    })
+    .then(function(response)  {
+
+        if (response.status != 200) {
+            console.log(`Reponse status was not 200: ${response.status}`);
+        }
+        response.json().then(function (data) {
+            console.log(data)
+        })
+     })
+
+}
+
+</script>
+{% endblock %}

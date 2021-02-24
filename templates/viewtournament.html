@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block style %}
+<style>
+.playerCon {
+    background-color: rgb(49, 118, 124)
+}
+
+.vs {
+    color:  rgb(90, 190, 193);
+}
+
+h2 {
+    color: white;
+}
+
+.btn {
+    background-color: rgb(90, 190, 193);
+    color: white;
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    {% for player in tournament %}
+    <div class="row"> 
+        <div class="col-12">
+            <center>
+                <div class="col-8 playerCon">
+                    <h2>{{player.val().userName}}</h2>
+                </div>
+            </center>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <center><button type="button" class="btn" onclick="join()" >
+                Join Tournament
+            </button></center>
+        </div>
+    </div>
+      
+      
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+function join() {
+    
+    var newPlayer = {join: 'join'}
+
+    return fetch(`${window.location}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(newPlayer),
+        cache: "no-cache",
+        headers: new Headers({
+            "content-type": "application/json"
+        })
+    })
+    .then(function(response)  {
+
+        if (response.status != 200) {
+            console.log(`Reponse status was not 200: ${response.status}`);
+        }
+        response.json().then(function (data) {
+            console.log(data)
+        })
+     })
+     .then(function() {
+        location.replace("{{ '/tournament/%s' %(host_id)  }}")
+     })
+
+}
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+
+{% block style %}
+<style>
+.btn {
+    background-color: rgb(90, 190, 193);
+    color: white;
+}
+
+h1 {
+    color: rgb(90, 190, 193);
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<center><h1>Welcome to Wager Brackets {{userName}}</h1></center>
+
+<center><a href="/createtournament" ><p class="btn">Create a Tournament</p></center></a>
+
+<center><a href="/search" ><p class="btn">Search for Tournament</p></center></a>
+
+<center><a href="{{ '/tournament/%s' %activeTournament  }}" ><p class="btn">Your Tournament</p></center></a>
+{% endblock %}
